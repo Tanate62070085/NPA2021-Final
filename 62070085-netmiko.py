@@ -4,11 +4,6 @@ from netmiko import ConnectHandler
 from paramiko import RSAKey
 from setuptools import Command
 
-def getDataFromDevice(params, command):
-    """Send command to device and return the result"""
-    with ConnectHandler(**params) as ssh:
-        result = ssh.send_command_set(command)
-        return result
 def loopbackConfig(params,delete=False):
     """"""
     Command = "int loopback 62070085"
@@ -16,8 +11,8 @@ def loopbackConfig(params,delete=False):
         Command = "no int loopback 62070085"
     with ConnectHandler(**params) as ssh:
         result = ssh.send_command("show ip int br | include Loop")
-        if len(result) == 0:
-            ssh.send_config_set([Command,"ip address 192.168.1.1 255.255.255.0"])
+        if len(result) == 0 and delete == False:
+            ssh.send_config_set([Command,"ip address 192.168.1.1 255.255.255.0","no shut"])
         result = ssh.send_command("show ip int br | include Loop")
     print(result)
 
