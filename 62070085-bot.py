@@ -49,11 +49,12 @@ def enable_interface(interface):
     basicauth = ("admin", "cisco")
 
     body = json.dumps({
-        "interface":"interface":"Loopback62070085"{
-            "enable": True
+        "ietf-interfaces:interface":{
+            "enabled": True
         }
+        
     })
-    response = requests.patch(api_url, auth=basicauth, headers=headers, verify=False)
+    response = requests.patch(api_url, auth=basicauth, headers=headers, verify=False, data=body)
     print(response.text)
 
 
