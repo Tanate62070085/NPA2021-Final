@@ -83,5 +83,5 @@ def Bot_main():
     except KeyboardInterrupt:
         print("Stop")
         pass
-# Bot_main()
-enable_interface("Loopback62070085")
+Bot_main()
+# enable_interface("Loopback62070085")
