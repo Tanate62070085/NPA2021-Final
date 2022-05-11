@@ -51,8 +51,7 @@ def enable_interface(interface):
     body = json.dumps({
         "ietf-interfaces:interface":{
             "enabled": True
-        }
-        
+        }      
     })
     response = requests.patch(api_url, auth=basicauth, headers=headers, verify=False, data=body)
     print(response.text)
@@ -74,9 +73,11 @@ def Bot_main():
                 interface_status = interface_status["ietf-interfaces:interface"]["enabled"]
                 if interface_status:
                     interface_status = "up"
+                    sent_to_room(token,roomid,"Enable Loopback62070085 - Now the Operational status is up again")
                 else:
                     interface_status = "down"
-                sent_to_room(token,roomid,"Loopback62070085 - Operational status is "+interface_status)
+                    sent_to_room(token,roomid,"Enable Loopback62070085 - Now the Operational status is still down")
+                # sent_to_room(token,roomid,"Loopback62070085 - Operational status is "+interface_status)
             time.sleep(1)
             message = get_from_room(token,roomid)["items"][0]["text"]
     except KeyboardInterrupt:
