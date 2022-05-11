@@ -2,6 +2,7 @@
 import json
 from multiprocessing.connection import wait
 import time
+from urllib import response
 import requests
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 requests.packages.urllib3.disable_warnings()
@@ -39,6 +40,23 @@ def get_from_room(token,roomid):
                   },params={'roomId': roomid})
     return(r.json())
 
+def enable_interface(interface):
+    api_url = "https://10.0.15.102/restconf/data/ietf-interfaces:interfaces/interface="+interface
+
+    headers = { "Accept": "application/yang-data+json", 
+            "Content-type":"application/yang-data+json"
+           }
+    basicauth = ("admin", "cisco")
+
+    body = json.dumps({
+        "interface":"interface":"Loopback62070085"{
+            "enable": True
+        }
+    })
+    response = requests.patch(api_url, auth=basicauth, headers=headers, verify=False)
+    print(response.text)
+
+
 def Bot_main():
     key = open("Important-key.json")
     data = json.load(key)
@@ -63,4 +81,5 @@ def Bot_main():
     except KeyboardInterrupt:
         print("Stop")
         pass
-Bot_main()
+# Bot_main()
+enable_interface("Loopback62070085")
