@@ -1,0 +1,8 @@
+FROM ubantu:22.10
+
+RUN apt install apt update
+RUN apt instal python
+RUN apt install git
+RUN git clone https://github.com/Tanate62070085/NPA2021-Final.git
+RUN cd GitRes/NPA2021-Final
+RUN pip -r requirement.txt
